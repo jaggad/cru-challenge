@@ -1,0 +1,20 @@
+# Don't need to copy docker files to docker
+.dockerignore
+Dockerfile
+# Should not copy git files to docker
+.git/
+.gitignore
+# Exclude any developer files
+.env
+.eslintrc.json
+.nvmrc
+.vscode/
+infrastructure/
+kubernetes/
+node_modules/
+npm-debug*
+README.md
+scripts/
+skaffold.yaml
+TODO.md
+# NOTE - /dist is explicitly included, as it is required by skaffold to sync correctly for dev environments.
