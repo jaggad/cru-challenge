@@ -18,17 +18,10 @@ import {
 import DateTimePicker from '@components/DateTimePicker'
 
 // API Data
-// import employees from '../../../api/employees.json'
-import shifts from '../../../api/shifts.json'
-import roles from '../../../api/roles.json'
-
-const doNothing = (value: Date | string) => {
-  console.log(value)
-  return value
-}
+import roles from '../../api/roles.json'
 
 const ShiftEditorModal: React.FC<ShiftEditorModalProps> = ({ store }) => {
-  const { isOpen, handleClose, shiftId } = useStore(store)
+  const { isOpen, handleClose, shiftId, shifts, updateShift } = useStore(store)
 
   const shiftData = shifts.find((shift) => shift.id === shiftId)
 
@@ -57,7 +50,9 @@ const ShiftEditorModal: React.FC<ShiftEditorModalProps> = ({ store }) => {
                   <DateTimePicker
                     label="Shift start"
                     date={startTime}
-                    handleChange={doNothing}
+                    handleChange={(date) =>
+                      updateShift(shiftId, { start_time: date.toString() })
+                    }
                   />
                 </FormControlWrapper>
 
@@ -65,7 +60,9 @@ const ShiftEditorModal: React.FC<ShiftEditorModalProps> = ({ store }) => {
                   <DateTimePicker
                     label="Shift end"
                     date={endTime}
-                    handleChange={doNothing}
+                    handleChange={(date) =>
+                      updateShift(shiftId, { end_time: date.toString() })
+                    }
                   />
                 </FormControlWrapper>
 

@@ -10,28 +10,33 @@ import {
   DataGrid,
   GridCellParams,
   GridColumns,
-  GridEnrichedColDef,
   MuiEvent,
 } from '@mui/x-data-grid'
 import { observer } from 'mobx-react'
-import { EmployeeShiftData, RosterTableProps } from './RosterTable.model'
+import {
+  EmployeeShiftData,
+  RoleData,
+  RosterTableProps,
+} from './RosterTable.model'
 import { useStore } from '@lib/store'
 import { getShiftType } from './getShiftType'
 import { GridContainer } from './RosterTable.styles'
 import { ROLE_CLASS_BASE } from '@lib/theme'
 
 // API Data
-import employees from '../../../api/employees.json'
-import shifts from '../../../api/shifts.json'
-import roles from '../../../api/roles.json'
+import employees from '../../api/employees.json'
+import roles from '../../api/roles.json'
 
 const RosterTable: React.FC<RosterTableProps> = ({ store }) => {
-  const { startDate, endDate, handleOpen } = useStore(store)
+  const { startDate, endDate, shifts, handleOpen } = useStore(store)
 
+  const TOTAL_TABLE_WIDTH = 780
   const daysBetweenLength =
     Math.abs(differenceInCalendarDays(startDate, endDate)) || 1
 
   // Generate dynamic number of columns based on date range
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   const dayColumns: GridColumns = Array.from(
     { length: daysBetweenLength },
     (_, i) => ({
@@ -40,11 +45,9 @@ const RosterTable: React.FC<RosterTableProps> = ({ store }) => {
         addDays(startDate, i),
         `dd/MM`
       )}`,
-      width: 100,
+      width: TOTAL_TABLE_WIDTH / daysBetweenLength,
       type: 'string',
-      valueFormatter: (
-        params: GridCellParams<EmployeeShiftData, GridEnrichedColDef>
-      ) => {
+      valueFormatter: (params: GridCellParams) => {
         return params?.value?.shiftType
       },
     })
@@ -72,7 +75,7 @@ const RosterTable: React.FC<RosterTableProps> = ({ store }) => {
       .map((shift) => {
         const start = new Date(shift.start_time)
         const end = new Date(shift.end_time)
-        const role = roles.find((role) => shift.role_id === role.id)
+        const role = roles.find((role: RoleData) => shift.role_id === role.id)
 
         return {
           startDay: getDay(start),

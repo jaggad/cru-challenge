@@ -1,7 +1,7 @@
 import styled from '@emotion/styled'
 import { Box } from '@mui/system'
 import { ROLE_CLASS_BASE } from '@lib/theme'
-import roles from '../../../api/roles.json'
+import roles from '../../api/roles.json'
 
 const roleColours = roles.map(
   (role) =>
