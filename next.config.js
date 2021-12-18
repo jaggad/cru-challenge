@@ -67,7 +67,7 @@ const nextJSConfig = {
     return config
   },
   reactStrictMode: true,
-  poweredByHeader: 'Canstar - With love',
+  excludeFile: (str) => /\*.{spec,test}.(js,ts,tsx)/.test(str),
 }
 
 /**

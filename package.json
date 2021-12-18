@@ -14,7 +14,6 @@
     "test:e2e": "playwright test"
   },
   "dependencies": {
-    "@apollo/client": "^3.4.17",
     "@emotion/cache": "latest",
     "@emotion/react": "latest",
     "@emotion/server": "latest",
@@ -25,7 +24,6 @@
     "@mui/styled-engine": "latest",
     "@mui/x-data-grid": "^5.2.0",
     "date-fns": "^2.27.0",
-    "graphql": "^16.0.1",
     "lodash": "^4.17.21",
     "mobx": "^6.3.8",
     "mobx-react": "^7.2.1",
@@ -39,10 +37,7 @@
   },
   "devDependencies": {
     "@babel/plugin-proposal-decorators": "^7.16.4",
-    "@iteratec/semantic-release-bitbucket": "latest",
     "@playwright/test": "latest",
-    "@semantic-release/changelog": "latest",
-    "@semantic-release/git": "latest",
     "@testing-library/jest-dom": "^5.15.1",
     "@testing-library/react": "latest",
     "@types/jest": "latest",
@@ -65,38 +60,7 @@
     "next-compose-plugins": "^2.2.1",
     "prettier": "latest",
     "react-test-renderer": "^17.0.2",
-    "semantic-release": "latest",
     "typescript": "^4.5.2"
-  },
-  "plugins": [
-    "@semantic-release/commit-analyzer",
-    "@semantic-release/release-notes-generator",
-    "@semantic-release/changelog",
-    "@semantic-release/git"
-  ],
-  "release": {
-    "prepare": [
-      "@semantic-release/npm",
-      "@semantic-release/changelog",
-      {
-        "path": "@semantic-release/git",
-        "assets": [
-          "package.json",
-          "package-lock.json",
-          "yarn-lock.json",
-          "CHANGELOG.md"
-        ],
-        "message": "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
-      }
-    ],
-    "analyzeCommits": "@semantic-release/commit-analyzer",
-    "verifyConditions": "@semantic-release/npm",
-    "generateNotes": "@semantic-release/release-notes-generator",
-    "publish": "@semantic-release/npm",
-    "success": false,
-    "fail": false,
-    "branch": "master",
-    "npmPublish": false
   },
   "config": {
     "commitizen": {

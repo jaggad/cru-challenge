@@ -1,5 +1,5 @@
 import React, { ReactChildren } from 'react'
-import { render, cleanup } from '@lib/testUtils'
+import { render, cleanup } from '../../lib/testUtils'
 import { ListSection } from './SideBar'
 import { NavItem } from './SideBar.models'
 

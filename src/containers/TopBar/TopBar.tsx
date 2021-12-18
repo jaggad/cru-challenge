@@ -14,13 +14,13 @@ import { TopBarProps } from './TopBar.model'
  * @returns A JSX Element
  */
 const TopBar: React.FC<TopBarProps> = (props) => {
-  const { currentVertical } = useStore(props.store)
+  const { config } = useStore(props.store)
 
   return (
     <AppBar position="fixed" sx={topBarStyles}>
       <Toolbar>
         <Typography variant="h6" noWrap component="div">
-          CRU Rostering
+          CRU Rostering - {config.location}
         </Typography>
       </Toolbar>
     </AppBar>
