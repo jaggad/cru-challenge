@@ -2,7 +2,12 @@ import { getHours } from 'date-fns'
 import { ShiftType } from './RosterTable.model'
 
 export const getShiftType = (shiftStartTime: Date): ShiftType => {
+  if (shiftStartTime instanceof Date && !isNaN(shiftStartTime.valueOf())) {
+    return 'N/A'
+  }
+
   const hours = getHours(shiftStartTime)
+
   if (hours <= 12) {
     return 'Morning'
   }

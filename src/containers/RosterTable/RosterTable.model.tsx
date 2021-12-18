@@ -4,7 +4,7 @@ export interface RosterTableProps {
   store?: IStore
 }
 
-export type ShiftType = 'Morning' | 'Day' | 'Evening' | 'Night'
+export type ShiftType = 'Morning' | 'Day' | 'Evening' | 'Night' | 'N/A'
 
 export interface EmployeeData {
   last_name: string
