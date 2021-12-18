@@ -1,6 +1,6 @@
 import { IStore } from '@lib/store'
 
-export interface RosterTableProps {
+export interface ShiftEditorModalProps {
   store?: IStore
 }
 

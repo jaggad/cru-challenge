@@ -55,7 +55,7 @@
     "commitizen": "latest",
     "cz-conventional-changelog": "latest",
     "cz-emoji-conventional": "latest",
-    "eslint": "latest",
+    "eslint": "^8.5.0",
     "eslint-config-next": "latest",
     "eslint-config-prettier": "latest",
     "eslint-plugin-react": "latest",

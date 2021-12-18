@@ -1,6 +1,5 @@
 import { getHours } from 'date-fns'
-
-type ShiftType = 'Morning' | 'Day' | 'Evening' | 'Night'
+import { ShiftType } from './RosterTable.model'
 
 export const getShiftType = (shiftStartTime: Date): ShiftType => {
   const hours = getHours(shiftStartTime)

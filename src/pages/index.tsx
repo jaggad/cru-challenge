@@ -7,6 +7,7 @@ import Box from '@mui/material/Box'
 import Head from 'next/head'
 import DateRange from '@containers/DateRange/DateRange'
 import RosterTable from '@containers/RosterTable/RosterTable'
+import ShiftEditorModal from '@containers/ShiftEditorModal/ShiftEditorModal'
 
 export default function IndexPage() {
   return (
@@ -24,6 +25,7 @@ export default function IndexPage() {
         <Box>
           <RosterTable />
         </Box>
+        <ShiftEditorModal />
       </Container>
     </>
   )

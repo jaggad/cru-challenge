@@ -10,12 +10,7 @@ export const dateRangeInitialState = {
   endDate: new Date(`2018-06-25T05:30:00+00:00`),
 }
 
-export const dateRangeStore = types
-  .model({
-    startDate: types.Date,
-    endDate: types.Date,
-  })
-  .actions((self) => ({
-    changeFrom: (date: Date) => (self.startDate = date),
-    changeTo: (date: Date) => (self.endDate = date),
-  }))
+export const dateRangeActions = (self: { startDate: Date; endDate: Date }) => ({
+  changeFrom: (date: Date) => (self.startDate = date),
+  changeTo: (date: Date) => (self.endDate = date),
+})

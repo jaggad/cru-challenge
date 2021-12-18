@@ -6,43 +6,52 @@ import {
   getDay,
   differenceInHours,
 } from 'date-fns'
-import { DataGrid } from '@mui/x-data-grid'
+import {
+  DataGrid,
+  GridCellParams,
+  GridColumns,
+  GridEnrichedColDef,
+  MuiEvent,
+} from '@mui/x-data-grid'
 import { observer } from 'mobx-react'
-import { RosterTableProps } from './RosterTable.model'
+import { EmployeeShiftData, RosterTableProps } from './RosterTable.model'
 import { useStore } from '@lib/store'
+import { getShiftType } from './getShiftType'
+import { GridContainer } from './RosterTable.styles'
+import { ROLE_CLASS_BASE } from '@lib/theme'
 
+// API Data
 import employees from '../../../api/employees.json'
 import shifts from '../../../api/shifts.json'
 import roles from '../../../api/roles.json'
-import { getShiftType } from './getShiftType'
-
-// const rows = [
-//   { id: 1, lastName: 'Snow', firstName: 'Jon', age: 35 },
-//   { id: 2, lastName: 'Lannister', firstName: 'Cersei', age: 42 },
-//   { id: 3, lastName: 'Lannister', firstName: 'Jaime', age: 45 },
-//   { id: 4, lastName: 'Stark', firstName: 'Arya', age: 16 },
-//   { id: 5, lastName: 'Targaryen', firstName: 'Daenerys', age: null },
-//   { id: 6, lastName: 'Melisandre', firstName: null, age: 150 },
-//   { id: 7, lastName: 'Clifford', firstName: 'Ferrara', age: 44 },
-//   { id: 8, lastName: 'Frances', firstName: 'Rossini', age: 36 },
-//   { id: 9, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
-// ]
 
 const RosterTable: React.FC<RosterTableProps> = ({ store }) => {
-  const { startDate, endDate } = useStore(store)
+  const { startDate, endDate, handleOpen } = useStore(store)
 
   const daysBetweenLength =
     Math.abs(differenceInCalendarDays(startDate, endDate)) || 1
 
-  const dayColumns = Array.from({ length: daysBetweenLength }, (_, i) => ({
-    field: i,
-    headerName: `${format(addDays(startDate, i), 'EEE')} - ${getDay(
-      addDays(startDate, i)
-    )}`,
-    width: 100,
-  }))
+  // Generate dynamic number of columns based on date range
+  const dayColumns: GridColumns = Array.from(
+    { length: daysBetweenLength },
+    (_, i) => ({
+      field: i.toString(),
+      headerName: `${format(addDays(startDate, i), 'EEE')} ${format(
+        addDays(startDate, i),
+        `dd/MM`
+      )}`,
+      width: 100,
+      type: 'string',
+      valueFormatter: (
+        params: GridCellParams<EmployeeShiftData, GridEnrichedColDef>
+      ) => {
+        return params?.value?.shiftType
+      },
+    })
+  )
 
-  const columns = [
+  // Join dynamic day columns to core column set
+  const columns: GridColumns = [
     {
       field: 'name',
       headerName: 'Name',
@@ -51,70 +60,84 @@ const RosterTable: React.FC<RosterTableProps> = ({ store }) => {
     {
       field: 'roles',
       headerName: 'Position Title',
-      width: 150,
+      width: 220,
     },
     ...dayColumns,
   ]
 
+  // Generate rows from "API" data
   const rows = employees.map((e) => {
-    const employeeShifts = shifts
+    const employeeShifts: EmployeeShiftData[] = shifts
       .filter((shift) => shift.employee_id === e.id)
       .map((shift) => {
         const start = new Date(shift.start_time)
         const end = new Date(shift.end_time)
+        const role = roles.find((role) => shift.role_id === role.id)
 
         return {
           startDay: getDay(start),
           endDay: getDay(end),
           shiftType: getShiftType(start),
           shiftDuration: differenceInHours(end, start),
-          break_duration: shift.break_duration,
+          breakDuration: Number(shift.break_duration) / 60,
           id: shift.id,
-          role_id: shift.role_id,
+          role: {
+            id: role?.id,
+            name: role?.name,
+            backgroundColor: role?.background_colour,
+            textColor: role?.text_colour,
+          },
         }
       })
 
-    const employeeRoles = [...new Set(employeeShifts.map((e) => e.role_id))]
-    const employeeRoleNames = employeeRoles.map(
-      (r) => roles.find((role) => role.id === r)?.name
-    )
+    // Get set of roles employee fills
+    const employeeRoles = [...new Set(employeeShifts.map((e) => e.role.name))]
 
-    const shiftsByDay = employeeShifts.reduce(
-      (a, v) => ({ ...a, [v.startDay]: v.shiftType }),
-      {}
-    )
+    // Organise shifts by day index
+    const shiftsByDay = employeeShifts.reduce((a, v) => ({
+      ...a,
+      [v.startDay]: v,
+    }))
 
-    // const shiftsByDay = {
-    //   employeeShifts.map((s) => {
-    //     return {
-    //       [s.startDay]: {
-    //         ...s,
-    //       },
-    //     }
-    //   }),
-    // }
-
-    console.log('shiftsByDay', shiftsByDay)
-
+    // Return column field values
     return {
-      id: e.id,
       name: `${e.first_name} ${e.last_name}`,
-      roles: employeeRoleNames.join(', '),
+      roles: employeeRoles.join(', '),
       ...shiftsByDay,
+      id: e.id,
     }
   })
 
-  console.log('rows', rows)
-
   return (
-    <div style={{ height: 400, width: '100%' }}>
+    <GridContainer>
       <DataGrid
+        autoHeight={true}
         rows={rows}
         columns={columns}
         pageSize={20}
         rowsPerPageOptions={[20, 50, 100]}
+        getCellClassName={(params: GridCellParams<EmployeeShiftData>) => {
+          const roleId = params?.value?.role?.id
+          const isShiftCell =
+            typeof params?.value?.shiftType !== 'undefined' ? 'shift-cell' : ''
+
+          // Return role classe
+          if (typeof roleId === 'undefined') {
+            return ''
+          }
+
+          return `${ROLE_CLASS_BASE}${roleId} ${isShiftCell}`
+        }}
+        onCellClick={(
+          params: GridCellParams,
+          event: MuiEvent<React.MouseEvent>
+        ) => {
+          event.defaultMuiPrevented = true
+          console.log('popup:', params)
+          handleOpen(params.value.id)
+        }}
       />
-    </div>
+    </GridContainer>
   )
 }
 
