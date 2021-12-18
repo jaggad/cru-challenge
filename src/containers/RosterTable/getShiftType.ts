@@ -1,12 +1,15 @@
-import { getHours } from 'date-fns'
+import { getHours, isValid } from 'date-fns'
 import { ShiftType } from './RosterTable.model'
 
 export const getShiftType = (shiftStartTime: Date): ShiftType => {
-  if (shiftStartTime instanceof Date && !isNaN(shiftStartTime.valueOf())) {
+  // Return fallback if date is not a valid input
+  if (!isValid(shiftStartTime)) {
     return 'N/A'
   }
 
   const hours = getHours(shiftStartTime)
+
+  console.log('hrs:', hours)
 
   if (hours <= 12) {
     return 'Morning'
