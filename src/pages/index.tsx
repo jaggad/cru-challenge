@@ -9,6 +9,10 @@ import DateRange from '@containers/DateRange/DateRange'
 import RosterTable from '@containers/RosterTable/RosterTable'
 import ShiftEditorModal from '@containers/ShiftEditorModal/ShiftEditorModal'
 
+/**
+ * The CRU Challenge IndexPage
+ * @returns CRU Index Page
+ */
 export default function IndexPage() {
   return (
     <>

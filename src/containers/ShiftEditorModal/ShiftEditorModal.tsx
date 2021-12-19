@@ -20,6 +20,12 @@ import DateTimePicker from '@components/DateTimePicker'
 // API Data
 import roles from '../../api/roles.json'
 
+/**
+ * A ShiftEditorModal Component to display and edit shift data
+ * inside of a modal component
+ *
+ * @returns A JSX Element
+ */
 const ShiftEditorModal: React.FC<ShiftEditorModalProps> = ({ store }) => {
   const { isOpen, handleClose, shiftId, shifts, updateShift } = useStore(store)
 

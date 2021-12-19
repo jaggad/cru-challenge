@@ -1,6 +1,12 @@
 import { getHours, isValid } from 'date-fns'
 import { ShiftType } from './RosterTable.model'
 
+/**
+ * Gets the "day period" type for a particular shift
+ *
+ * @param shiftStartTime A valid shift start DateTime
+ * @returns The type of period for this shift
+ */
 export const getShiftType = (shiftStartTime: Date): ShiftType => {
   // Return fallback if date is not a valid input
   if (!isValid(shiftStartTime)) {
@@ -8,8 +14,6 @@ export const getShiftType = (shiftStartTime: Date): ShiftType => {
   }
 
   const hours = getHours(shiftStartTime)
-
-  console.log('hrs:', hours)
 
   if (hours <= 12) {
     return 'Morning'

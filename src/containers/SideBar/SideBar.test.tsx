@@ -3,8 +3,6 @@ import { render, cleanup } from '../../lib/testUtils'
 import { ListSection } from './SideBar'
 import { NavItem } from './SideBar.models'
 
-// Note: running cleanup afterEach is done automatically for you in @testing-library/react@9.0.0 or higher
-// unmount and cleanup DOM after the test is finished.
 afterEach(cleanup)
 
 it('should render an array of list items with text and icons', () => {
@@ -53,5 +51,3 @@ it('changes value when clicked', () => {
   expect(link.tagName).toBe('A')
   expect(link).toHaveAttribute('href')
 })
-
-// 8. expect button to act as a link if `to` propert present

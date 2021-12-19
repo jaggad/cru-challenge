@@ -28,7 +28,7 @@ export interface DefaultAppProps extends AppPropsType {
  * @param AppProps
  * @returns The root level App Component with Providers
  */
-export default function CNSApp({
+export default function CRUApp({
   Component,
   pageProps,
   emotionCache = clientSideEmotionCache,

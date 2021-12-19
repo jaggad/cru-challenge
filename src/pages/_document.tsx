@@ -25,9 +25,9 @@ const MainWrapper = styled(`div`)`
 `
 
 /**
- * CNS Document
+ * CRU Document
  */
-export default class CNSDocument extends Document {
+export default class CRUDocument extends Document {
   render() {
     return (
       <Html>
@@ -78,7 +78,7 @@ export default class CNSDocument extends Document {
   }
 }
 
-CNSDocument.getInitialProps = async (ctx: DocumentContext) => {
+CRUDocument.getInitialProps = async (ctx: DocumentContext) => {
   const originalRenderPage = ctx.renderPage
 
   // You can consider sharing the same emotion cache between all the SSR requests to speed up performance.

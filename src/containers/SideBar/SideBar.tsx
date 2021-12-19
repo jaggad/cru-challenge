@@ -13,6 +13,7 @@ import { NavItem } from './SideBar.models'
 
 const MainNavItems: NavItem[] = [
   { text: 'Rostering', icon: <CropSquareIcon /> },
+  { text: 'Timetable', icon: <CropSquareIcon /> },
 ]
 
 /**

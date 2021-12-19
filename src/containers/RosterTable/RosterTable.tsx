@@ -27,6 +27,12 @@ import { ROLE_CLASS_BASE } from '@lib/theme'
 import employees from '../../api/employees.json'
 import roles from '../../api/roles.json'
 
+/**
+ * A Roster Table Component to display employee and shift data in a
+ * visual format
+ *
+ * @returns A JSX Element
+ */
 const RosterTable: React.FC<RosterTableProps> = ({ store }) => {
   const { startDate, endDate, shifts, handleOpen } = useStore(store)
 
@@ -35,6 +41,7 @@ const RosterTable: React.FC<RosterTableProps> = ({ store }) => {
     Math.abs(differenceInCalendarDays(startDate, endDate)) || 1
 
   // Generate dynamic number of columns based on date range
+
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   const dayColumns: GridColumns = Array.from(

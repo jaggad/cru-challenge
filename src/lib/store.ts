@@ -19,7 +19,6 @@ import {
 
 let store: IStore | undefined
 
-// import employees from '../../../api/employees.json'
 import shifts from '../api/shifts.json'
 import config from '../api/config.json'
 
@@ -72,7 +71,7 @@ export function initializeStore(snapshot = null) {
       shifts,
     })
 
-  // If your page has Next.js data fetching methods that use a Mobx store, it will get hydrated here
+  // Data fetching methods that use a Mobx store will get hydrated here
   if (snapshot) {
     applySnapshot(_store, snapshot)
   }
@@ -86,7 +85,7 @@ export function initializeStore(snapshot = null) {
   return store
 }
 
-// eslint-disable-next-line
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type InitialState = null | undefined | any
 
 export interface InitialStatePageProps {

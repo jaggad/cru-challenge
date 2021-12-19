@@ -21,9 +21,9 @@ export interface RoleData {
 
 export interface ShiftData {
   employee_id: number
-  start_time: Date
+  start_time: string
   role_id: number
-  end_time: Date
+  end_time: string
   id: number
   break_duration: number
 }

@@ -19,7 +19,9 @@
 - I built a bit of surrounding ecosystem for the repo
 
 - TODO: Handling for overlapping shifts
-- TODO:
+- TODO: Handling for timezones and displaying timezone
+- TODO: More test coverage?
+- TODO: Tabular easy-edit view
 
 ##
 
