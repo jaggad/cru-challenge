@@ -1,5 +1,5 @@
 import { cleanup } from '../../lib/testUtils'
-import { getShiftType } from './getShiftType'
+import { getShiftType } from './RosterTable.logic'
 
 afterEach(cleanup)
 

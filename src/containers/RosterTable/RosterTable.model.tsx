@@ -44,3 +44,18 @@ export interface EmployeeShiftData {
   breakDuration: number
   role: EmployeeRole
 }
+
+export interface EmployeeShiftRow {
+  name: string
+  roles: string
+  id: number
+
+  // Unique day ids 0 - 6 available
+  0?: EmployeeShiftData
+  1?: EmployeeShiftData
+  2?: EmployeeShiftData
+  3?: EmployeeShiftData
+  4?: EmployeeShiftData
+  5?: EmployeeShiftData
+  6?: EmployeeShiftData
+}
