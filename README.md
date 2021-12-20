@@ -18,12 +18,11 @@
 
 - The logic for employees not getting direct back-to-back days would be left up to the organiser manually for now. This should be clear
 
-- I built a bit of surrounding ecosystem for the repo
+- I built a bit of surrounding ecosystem for the repo, added some basic tests but it's not comprehensive by any means
 
+- Opted not to do the following as I felt the repo was enough to demonstrate what was being asked
 - TODO: Handling for overlapping shifts
-- TODO: Handling for timezones and displaying timezone
-- TODO: More test coverage?
-- TODO: Tabular easy-edit view
+- TODO: Tabular easy-edit view (handle-able by the modal popup)
 
 ##
 
