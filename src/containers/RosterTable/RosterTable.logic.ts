@@ -9,7 +9,6 @@ import {
   differenceInCalendarDays,
   differenceInHours,
   format,
-  getDay,
   getHours,
   isValid,
 } from 'date-fns'
@@ -74,7 +73,7 @@ export const generateDayColumns = (
 
   // Generate dynamic number of columns based on date range
   return Array.from({ length: daysBetweenLength }, (_, i) => ({
-    field: i.toString(),
+    field: format(addDays(startDate, i), 'dd-MM-yyyy'),
     headerName: `${format(addDays(startDate, i), 'EEE')} ${format(
       addDays(startDate, i),
       `dd/MM`
@@ -112,8 +111,8 @@ export const createShiftObject = (
   const role = roles.find((role: RoleData) => shift.role_id === role.id)
 
   return {
-    startDay: getDay(start),
-    endDay: getDay(end),
+    startDay: format(start, 'dd-MM-yyyy'),
+    endDay: format(end, 'dd-MM-yyyy'),
     shiftType: getShiftType(start, timeZone),
     shiftDuration: differenceInHours(end, start),
     breakDuration: Number(shift.break_duration) / 60,

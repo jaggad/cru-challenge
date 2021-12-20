@@ -75,6 +75,7 @@ const RosterTable: React.FC<RosterTableProps> = ({ store }) => {
           event: MuiEvent<React.MouseEvent>
         ) => {
           event.defaultMuiPrevented = true
+          console.log(params.value.id)
           handleOpen(params.value.id)
         }}
       />

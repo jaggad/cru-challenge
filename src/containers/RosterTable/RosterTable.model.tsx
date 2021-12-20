@@ -37,8 +37,8 @@ export interface EmployeeRole {
 
 export interface EmployeeShiftData {
   id: number
-  startDay: number
-  endDay: number
+  startDay: string
+  endDay: string
   shiftType: ShiftType
   shiftDuration: number
   breakDuration: number

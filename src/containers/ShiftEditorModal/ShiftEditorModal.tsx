@@ -7,6 +7,7 @@ import {
   InputLabel,
   Button,
 } from '@mui/material'
+import { convertToTimeZone } from 'date-fns-timezone'
 import { observer } from 'mobx-react'
 import { useStore } from '@lib/store'
 import { ShiftEditorModalProps } from './ShiftEditorModal.model'
@@ -27,7 +28,14 @@ import roles from '../../api/roles.json'
  * @returns A JSX Element
  */
 const ShiftEditorModal: React.FC<ShiftEditorModalProps> = ({ store }) => {
-  const { isOpen, handleClose, shiftId, shifts, updateShift } = useStore(store)
+  const {
+    isOpen,
+    handleClose,
+    shiftId,
+    shifts,
+    updateShift,
+    config: { timezone },
+  } = useStore(store)
 
   const shiftData = shifts.find((shift) => shift.id === shiftId)
 
@@ -36,8 +44,12 @@ const ShiftEditorModal: React.FC<ShiftEditorModalProps> = ({ store }) => {
     return null
   }
 
-  const startTime = new Date(shiftData.start_time)
-  const endTime = new Date(shiftData.end_time)
+  const startTime = convertToTimeZone(new Date(shiftData.start_time), {
+    timeZone: timezone,
+  })
+  const endTime = convertToTimeZone(new Date(shiftData.end_time), {
+    timeZone: timezone,
+  })
 
   return (
     <div>
