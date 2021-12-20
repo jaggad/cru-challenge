@@ -24,6 +24,7 @@
     "@mui/styled-engine": "latest",
     "@mui/x-data-grid": "^5.2.0",
     "date-fns": "^2.27.0",
+    "date-fns-timezone": "^0.1.4",
     "lodash": "^4.17.21",
     "mobx": "^6.3.8",
     "mobx-react": "^7.2.1",

@@ -1,3 +1,4 @@
+import { convertToTimeZone } from 'date-fns-timezone'
 import {
   GridCellValue,
   GridColumns,
@@ -30,13 +31,16 @@ import roles from '../../api/roles.json'
  * @param shiftStartTime A valid shift start DateTime
  * @returns The type of period for this shift
  */
-export const getShiftType = (shiftStartTime: Date): ShiftType => {
+export const getShiftType = (
+  shiftStartTime: Date,
+  timeZone: string
+): ShiftType => {
   // Return fallback if date is not a valid input
   if (!isValid(shiftStartTime)) {
     return 'N/A'
   }
 
-  const hours = getHours(shiftStartTime)
+  const hours = getHours(convertToTimeZone(shiftStartTime, { timeZone }))
 
   if (hours <= 12) {
     return 'Morning'
@@ -99,15 +103,18 @@ export const generateDayColumns = (
  * @param shift The API shift data
  * @returns `EmployeeShiftData` A modified shift data array combining role, shift, and calculated fields
  */
-export const createShiftObject = (shift: ShiftData): EmployeeShiftData => {
-  const start = new Date(shift.start_time)
-  const end = new Date(shift.end_time)
+export const createShiftObject = (
+  shift: ShiftData,
+  timeZone: string
+): EmployeeShiftData => {
+  const start = convertToTimeZone(new Date(shift.start_time), { timeZone })
+  const end = convertToTimeZone(new Date(shift.end_time), { timeZone })
   const role = roles.find((role: RoleData) => shift.role_id === role.id)
 
   return {
     startDay: getDay(start),
     endDay: getDay(end),
-    shiftType: getShiftType(start),
+    shiftType: getShiftType(start, timeZone),
     shiftDuration: differenceInHours(end, start),
     breakDuration: Number(shift.break_duration) / 60,
     id: shift.id,
@@ -127,13 +134,14 @@ export const createShiftObject = (shift: ShiftData): EmployeeShiftData => {
  * @returns A set of rows with information for employee shifts
  */
 export const generateEmployeeShiftRows = (
-  shifts: ShiftData[]
+  shifts: ShiftData[],
+  timeZone: string
 ): EmployeeShiftRow[] =>
   employees.map((e) => {
     // Get shifts by employee
     const employeeShifts: EmployeeShiftData[] = shifts
       .filter((shift) => shift.employee_id === e.id)
-      .map((shift) => createShiftObject(shift))
+      .map((shift) => createShiftObject(shift, timeZone))
 
     // Get unique set of roles employee fills, comma separated
     const employeeRoles: string = [

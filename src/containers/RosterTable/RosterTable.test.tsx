@@ -4,29 +4,30 @@ import { getShiftType } from './RosterTable.logic'
 afterEach(cleanup)
 
 describe('getShiftType', () => {
+  // Dates are in UTC Time and converted
+  const timeZone = 'Australia/Brisbane'
+
   it('return the correct day period string based on hours', () => {
-    const day = new Date('2018-06-18T13:30:00+00:00')
-    expect(getShiftType(day)).toStrictEqual('Day')
+    const night = new Date(`2018-06-18T13:30:00+00:00`)
+    expect(getShiftType(night, timeZone)).toStrictEqual('Night')
 
-    const evening = new Date('2018-06-18T17:30:00+00:00')
-    expect(getShiftType(evening)).toStrictEqual('Evening')
+    const morning = new Date(`2018-06-18T17:30:00+00:00`)
+    expect(getShiftType(morning, timeZone)).toStrictEqual('Morning')
 
-    const night = new Date('2018-06-18T20:30:00+00:00')
-    expect(getShiftType(night)).toStrictEqual('Night')
+    const day = new Date(`2018-06-18T04:30:00+00:00`)
+    expect(getShiftType(day, timeZone)).toStrictEqual('Day')
 
-    const morning = new Date('2018-06-19T05:00:00+00:00')
-    expect(getShiftType(morning)).toStrictEqual('Morning')
+    const evening = new Date(`2018-06-19T07:30:00+00:00`)
+    expect(getShiftType(evening, timeZone)).toStrictEqual('Evening')
   })
 
   it('return N/A if not a valid input', () => {
     const fail = new Date('fake')
-    expect(getShiftType(fail)).toStrictEqual('N/A')
+    expect(getShiftType(fail, timeZone)).toStrictEqual('N/A')
   })
-})
 
-describe('RosterTable', () => {
   it('return N/A if not a valid input', () => {
     const fail = new Date('fake')
-    expect(getShiftType(fail)).toStrictEqual('N/A')
+    expect(getShiftType(fail, timeZone)).toStrictEqual('N/A')
   })
 })

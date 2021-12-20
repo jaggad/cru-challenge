@@ -4,6 +4,8 @@
 
 - I wasn't sure of the best way to display data as I've never worked with or seen a rostering app or been on a roster before. I decided to simply reference the screenshot for CRU's product and have a go at infering functinonality from that
 
+-The user can select between 1 - n days to display, any amount over 7 days e.g one week will not display well, this is a limiation i chose not to address for this test
+
 - The start / end time update is not the most user-friendly but more powerful as it allows changing time and day for the shifts.
 
 - The Material UI datagrid can be more customised to allow proper sorting with logic, I opted not to invest time in this for the technical test

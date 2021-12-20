@@ -22,11 +22,17 @@ import { ROLE_CLASS_BASE } from '@lib/theme'
  * @returns A JSX Element
  */
 const RosterTable: React.FC<RosterTableProps> = ({ store }) => {
-  const { startDate, endDate, shifts, handleOpen } = useStore(store)
+  const {
+    startDate,
+    endDate,
+    shifts,
+    handleOpen,
+    config: { timezone },
+  } = useStore(store)
 
   // Generate the specificnumber of day columns
   const dayColumns = generateDayColumns(startDate, endDate)
-  const rows = generateEmployeeShiftRows(shifts)
+  const rows = generateEmployeeShiftRows(shifts, timezone)
 
   // Join dynamic day columns to core column set
   const columns: GridColumns = [
