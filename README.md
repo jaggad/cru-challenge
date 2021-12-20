@@ -24,6 +24,7 @@
 - TODO: Handling for overlapping shifts
 - TODO: Tabular easy-edit view (handle-able by the modal popup)
 - TODO: Adding new shifts in empty slots
+- TODO: I was going to add e2e tests, but decided it was un-needed
 
 ##
 
