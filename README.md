@@ -23,6 +23,7 @@
 - Opted not to do the following as I felt the repo was enough to demonstrate what was being asked
 - TODO: Handling for overlapping shifts
 - TODO: Tabular easy-edit view (handle-able by the modal popup)
+- TODO: Adding new shifts in empty slots
 
 ##
 
