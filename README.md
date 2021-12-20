@@ -1,10 +1,16 @@
 # Notes, choices & assumptions
 
+So there's always more to be done, but I don't want to spend hours and hours polishing features that nobody is going to ever use or see. I feel what has been done in this repo is enough of a representation that I didn't need to implement extra features and functionality for the sake of it.
+
+There is enough variety of element, state management, business logic, code quality, repo structing, repo ecosystem setup, and basic layout and design implementation. Happy to discuss further in person regarding somechoices.
+
+See below information for some choices and also what could further be done if this repo were to be continued.
+
 - I opted to use material design to save some time on creating designs and not overcomplicating this matter as I determined it was more about demonstrating quality, structure, and logic implementation rather than the simple component design.
 
 - I wasn't sure of the best way to display data as I've never worked with or seen a rostering app or been on a roster before. I decided to simply reference the screenshot for CRU's product and have a go at infering functinonality from that
 
--The user can select between 1 - n days to display, any amount over 7 days e.g one week will not display well, this is a limiation i chose not to address for this test
+- The user can select between 1 - n days to display, any amount over 7 days e.g one week will not display well, this is a limiation i chose not to address for this test
 
 - The start / end time update is not the most user-friendly but more powerful as it allows changing time and day for the shifts.
 
